@@ -1,0 +1,57 @@
+name: Build SAKA_QMS (from ZIP)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-win:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Unzip project
+        run: powershell -Command "Expand-Archive -Force SAKA_QMS_DESKTOP_A_WORKING.zip ."
+
+      - name: Install
+        run: |
+          cd SAKA_QMS_DESKTOP_A
+          npm ci
+
+      - name: Build
+        run: |
+          cd SAKA_QMS_DESKTOP_A
+          npm run dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SAKA_QMS_Windows
+          path: SAKA_QMS_DESKTOP_A/dist/**
+
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Unzip project
+        run: unzip -o SAKA_QMS_DESKTOP_A_WORKING.zip
+
+      - name: Install
+        run: |
+          cd SAKA_QMS_DESKTOP_A
+          npm ci
+
+      - name: Build
+        run: |
+          cd SAKA_QMS_DESKTOP_A
+          npm run dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SAKA_QMS_macOS
+          path: SAKA_QMS_DESKTOP_A/dist/**
