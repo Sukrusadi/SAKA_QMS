@@ -18,7 +18,7 @@ jobs:
       - name: Install
         run: |
           cd SAKA_QMS_DESKTOP_A
-          npm ci
+          npm install
 
       - name: Build
         run: |
@@ -44,7 +44,7 @@ jobs:
       - name: Install
         run: |
           cd SAKA_QMS_DESKTOP_A
-          npm ci
+          npm install
 
       - name: Build
         run: |
