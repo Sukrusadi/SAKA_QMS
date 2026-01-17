@@ -21,9 +21,11 @@ jobs:
           npm install
 
       - name: Build
-        run: |
-          cd SAKA_QMS_DESKTOP_A
-          npm run dist
+  env:
+    CSC_IDENTITY_AUTO_DISCOVERY: "false"
+  run: |
+    cd SAKA_QMS_DESKTOP_A
+    npm run dist
 
       - uses: actions/upload-artifact@v4
         with:
@@ -46,10 +48,12 @@ jobs:
           cd SAKA_QMS_DESKTOP_A
           npm install
 
-      - name: Build
-        run: |
-          cd SAKA_QMS_DESKTOP_A
-          npm run dist
+     - name: Build
+  env:
+    CSC_IDENTITY_AUTO_DISCOVERY: "false"
+  run: |
+    cd SAKA_QMS_DESKTOP_A
+    npm run dist
 
       - uses: actions/upload-artifact@v4
         with:
