@@ -13,24 +13,24 @@ jobs:
           node-version: "20"
 
       - name: Unzip project
-        run: powershell -Command "Expand-Archive -Force SAKA_QMS_DESKTOP_A_WORKING.zip ."
-
+  run: |
+    mkdir app
+    unzip -o SAKA_QMS_DESKTOP_A_WORKING.zip -d app
       - name: Install
-        run: |
-          cd SAKA_QMS_DESKTOP_A
-          npm install
-
+  run: |
+    cd app
+    npm install
       - name: Build
   env:
     CSC_IDENTITY_AUTO_DISCOVERY: "false"
   run: |
-    cd SAKA_QMS_DESKTOP_A
+    cd app
     npm run dist
 
       - uses: actions/upload-artifact@v4
         with:
           name: SAKA_QMS_Windows
-          path: SAKA_QMS_DESKTOP_A/dist/**
+          path: app/dist/**
 
   build-mac:
     runs-on: macos-latest
@@ -41,21 +41,22 @@ jobs:
           node-version: "20"
 
       - name: Unzip project
-        run: unzip -o SAKA_QMS_DESKTOP_A_WORKING.zip
-
+  run: |
+    mkdir app
+    unzip -o SAKA_QMS_DESKTOP_A_WORKING.zip -d app
       - name: Install
-        run: |
-          cd SAKA_QMS_DESKTOP_A
-          npm install
+  run: |
+    cd app
+    npm install
 
      - name: Build
   env:
     CSC_IDENTITY_AUTO_DISCOVERY: "false"
   run: |
-    cd SAKA_QMS_DESKTOP_A
+    cd app
     npm run dist
 
       - uses: actions/upload-artifact@v4
         with:
           name: SAKA_QMS_macOS
-          path: SAKA_QMS_DESKTOP_A/dist/**
+          path: app/dist/**
